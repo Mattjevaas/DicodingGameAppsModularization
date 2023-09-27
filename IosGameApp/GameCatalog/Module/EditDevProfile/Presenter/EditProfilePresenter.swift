@@ -41,7 +41,7 @@ class EditProfilePresenter {
         }
     }
     
-    @objc func saveData() {
+    func saveData() {
         UserDefaults.standard.set(fieldName.text, forKey: Constants.nameKey)
         UserDefaults.standard.set(fieldDesc.text, forKey: Constants.descKey)
         

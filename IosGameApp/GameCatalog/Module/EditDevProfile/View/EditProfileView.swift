@@ -94,7 +94,7 @@ extension EditProfileView {
         presenter.buttonSave.clipsToBounds = true
         presenter.buttonSave.layer.cornerRadius = 5
         presenter.buttonSave.setTitle("Save", for: .normal)
-        presenter.buttonSave.addTarget(self, action: #selector(presenter.saveData), for: .touchUpInside)
+        presenter.buttonSave.addTarget(self, action: #selector(saveData), for: .touchUpInside)
     }
     
     func setStackOne() {
@@ -158,4 +158,7 @@ extension EditProfileView {
         presenter.buttonSave.bottomAnchor.constraint(lessThanOrEqualTo: presenter.contentView.bottomAnchor).isActive = true
     }
     
+    @objc func saveData() {
+        presenter.saveData()
+    }
 }
