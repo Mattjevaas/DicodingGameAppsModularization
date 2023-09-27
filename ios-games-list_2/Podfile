@@ -1,0 +1,85 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '12.0'
+
+use_frameworks!
+workspace 'GameCategoryModularization'
+
+
+#abstract_target 'GameTarget' do
+#  use_frameworks!
+#  
+#  pod 'Alamofire'
+#  pod 'RealmSwift', '~> 10.42' 
+#  
+#  target 'GameCatalog' do
+#
+#    # Pods for GameCatalog
+#    pod 'SwiftLint'
+#    pod 'Kingfisher', '7.6.1'
+#    pod 'SkeletonView'
+#    pod 'RxSwift', '6.5.0'
+#    pod 'RxCocoa', '6.5.0'
+#    pod 'Swinject'
+#    
+#  end
+#  
+#  target 'Core' do
+#     project '../Modules/Core/Core'
+#  end
+#  
+#  target 'Game' do
+#     project '../Modules/Game/Game'
+#  end
+#  
+#  target 'GameDLC' do
+#     project '../Modules/GameDLC/GameDLC'
+#  end
+#end
+#
+
+def shared_pods
+  pod 'Alamofire'
+  pod 'RealmSwift', '~> 10.42'
+end
+
+target 'GameCatalog' do
+  
+  # Pods for GameCatalog
+  shared_pods
+  
+  pod 'SwiftLint'
+  pod 'Kingfisher', '7.6.1'
+  pod 'SkeletonView'
+  pod 'RxSwift', '6.5.0'
+  pod 'RxCocoa', '6.5.0'
+  pod 'Swinject'
+  
+end
+
+target 'Core' do
+  shared_pods
+  
+  project '../Modules/Core/Core'
+end
+
+target 'GameMod' do
+  shared_pods
+  
+  project '../Modules/GameMod/GameMod'
+end
+
+target 'GameDLC' do
+  shared_pods
+  
+  project '../Modules/GameDLC/GameDLC'
+end
+
+
+target 'GameCatalogTests' do
+   use_frameworks!
+
+   pod 'RxBlocking', '6.5.0'
+   pod 'RxTest', '6.5.0'
+end
+
+
