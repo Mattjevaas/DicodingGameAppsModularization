@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		843654722AC48A110089F63F /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843654712AC48A110089F63F /* Core.framework */; };
-		843654732AC48A110089F63F /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 843654712AC48A110089F63F /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		843654812AC494FF0089F63F /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843654802AC494FF0089F63F /* Core.framework */; };
+		843654822AC494FF0089F63F /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 843654802AC494FF0089F63F /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		84CD081A2AC28C9B001B4762 /* GameDLC.h in Headers */ = {isa = PBXBuildFile; fileRef = 84CD08192AC28C9B001B4762 /* GameDLC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84CD08262AC28ED2001B4762 /* GameAddsListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CD08252AC28ED2001B4762 /* GameAddsListResponse.swift */; };
 		84CD082B2AC28F2C001B4762 /* GetAddsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CD082A2AC28F2C001B4762 /* GetAddsRepository.swift */; };
@@ -18,13 +18,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		843654742AC48A110089F63F /* Embed Frameworks */ = {
+		843654832AC494FF0089F63F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				843654732AC48A110089F63F /* Core.framework in Embed Frameworks */,
+				843654822AC494FF0089F63F /* Core.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -33,10 +33,11 @@
 
 /* Begin PBXFileReference section */
 		3F8F36FA8DA3D557C6304FFF /* Pods-GameTarget-GameDLC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameTarget-GameDLC.debug.xcconfig"; path = "Target Support Files/Pods-GameTarget-GameDLC/Pods-GameTarget-GameDLC.debug.xcconfig"; sourceTree = "<group>"; };
-		4929C25E1C3E9FB49D5D0595 /* Pods-GameDLC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDLC.release.xcconfig"; path = "Target Support Files/Pods-GameDLC/Pods-GameDLC.release.xcconfig"; sourceTree = "<group>"; };
-		7E7D8C1EEB98FB76813D92E6 /* Pods-GameDLC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDLC.debug.xcconfig"; path = "Target Support Files/Pods-GameDLC/Pods-GameDLC.debug.xcconfig"; sourceTree = "<group>"; };
+		4929C25E1C3E9FB49D5D0595 /* Pods-GameDLC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDLC.release.xcconfig"; path = "../../IosGameApp/Pods/Target Support Files/Pods-GameDLC/Pods-GameDLC.release.xcconfig"; sourceTree = "<group>"; };
+		7E7D8C1EEB98FB76813D92E6 /* Pods-GameDLC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDLC.debug.xcconfig"; path = "../../IosGameApp/Pods/Target Support Files/Pods-GameDLC/Pods-GameDLC.debug.xcconfig"; sourceTree = "<group>"; };
 		82B1E4ECF93AAD07A4326FB2 /* Pods-GameTarget-GameDLC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameTarget-GameDLC.release.xcconfig"; path = "Target Support Files/Pods-GameTarget-GameDLC/Pods-GameTarget-GameDLC.release.xcconfig"; sourceTree = "<group>"; };
 		843654712AC48A110089F63F /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		843654802AC494FF0089F63F /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CD08162AC28C9B001B4762 /* GameDLC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GameDLC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CD08192AC28C9B001B4762 /* GameDLC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameDLC.h; sourceTree = "<group>"; };
 		84CD08252AC28ED2001B4762 /* GameAddsListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAddsListResponse.swift; sourceTree = "<group>"; };
@@ -54,7 +55,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB47E793F7EE5B239759D08 /* Pods_GameDLC.framework in Frameworks */,
-				843654722AC48A110089F63F /* Core.framework in Frameworks */,
+				843654812AC494FF0089F63F /* Core.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +155,7 @@
 		CD462353A8E3E342C591C922 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				843654802AC494FF0089F63F /* Core.framework */,
 				843654712AC48A110089F63F /* Core.framework */,
 				84CD08392AC2A9A8001B4762 /* Core.framework */,
 				84CD08312AC2A48E001B4762 /* Alamofire.framework */,
@@ -185,7 +187,7 @@
 				84CD08122AC28C9B001B4762 /* Sources */,
 				84CD08132AC28C9B001B4762 /* Frameworks */,
 				84CD08142AC28C9B001B4762 /* Resources */,
-				843654742AC48A110089F63F /* Embed Frameworks */,
+				843654832AC494FF0089F63F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8436546E2AC48A070089F63F /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8436546D2AC48A070089F63F /* Core.framework */; };
-		8436546F2AC48A070089F63F /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8436546D2AC48A070089F63F /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8436547D2AC494F70089F63F /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8436547C2AC494F70089F63F /* Core.framework */; };
+		8436547E2AC494F70089F63F /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8436547C2AC494F70089F63F /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8436549A2AC5B17C0089F63F /* GameDLC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843654992AC5B17C0089F63F /* GameDLC.framework */; };
+		8436549B2AC5B17C0089F63F /* GameDLC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 843654992AC5B17C0089F63F /* GameDLC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		84A99A362AC4895E00B0BF56 /* GameMod.h in Headers */ = {isa = PBXBuildFile; fileRef = 84A99A352AC4895E00B0BF56 /* GameMod.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84A99A592AC4899E00B0BF56 /* FavoriteGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A99A3E2AC4899E00B0BF56 /* FavoriteGameModel.swift */; };
 		84A99A5A2AC4899E00B0BF56 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A99A3F2AC4899E00B0BF56 /* GameModel.swift */; };
@@ -34,13 +36,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		843654702AC48A070089F63F /* Embed Frameworks */ = {
+		8436547F2AC494F70089F63F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8436546F2AC48A070089F63F /* Core.framework in Embed Frameworks */,
+				8436549B2AC5B17C0089F63F /* GameDLC.framework in Embed Frameworks */,
+				8436547E2AC494F70089F63F /* Core.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,9 +51,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2BB3CB8F243B2DB5E815AB04 /* Pods-GameMod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameMod.debug.xcconfig"; path = "Target Support Files/Pods-GameMod/Pods-GameMod.debug.xcconfig"; sourceTree = "<group>"; };
-		540D83830EB89607CB54972A /* Pods-GameMod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameMod.release.xcconfig"; path = "Target Support Files/Pods-GameMod/Pods-GameMod.release.xcconfig"; sourceTree = "<group>"; };
+		2BB3CB8F243B2DB5E815AB04 /* Pods-GameMod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameMod.debug.xcconfig"; path = "../../IosGameApp/Pods/Target Support Files/Pods-GameMod/Pods-GameMod.debug.xcconfig"; sourceTree = "<group>"; };
+		540D83830EB89607CB54972A /* Pods-GameMod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameMod.release.xcconfig"; path = "../../IosGameApp/Pods/Target Support Files/Pods-GameMod/Pods-GameMod.release.xcconfig"; sourceTree = "<group>"; };
 		8436546D2AC48A070089F63F /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		843654782AC494EC0089F63F /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8436547C2AC494F70089F63F /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		843654992AC5B17C0089F63F /* GameDLC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GameDLC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A99A322AC4895E00B0BF56 /* GameMod.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GameMod.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A99A352AC4895E00B0BF56 /* GameMod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameMod.h; sourceTree = "<group>"; };
 		84A99A3E2AC4899E00B0BF56 /* FavoriteGameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteGameModel.swift; sourceTree = "<group>"; };
@@ -81,8 +87,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8436549A2AC5B17C0089F63F /* GameDLC.framework in Frameworks */,
 				E368830EC5314CBE55389AEE /* Pods_GameMod.framework in Frameworks */,
-				8436546E2AC48A070089F63F /* Core.framework in Frameworks */,
+				8436547D2AC494F70089F63F /* Core.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +99,9 @@
 		70043DF3B2A2C441FFDFFD4B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				843654992AC5B17C0089F63F /* GameDLC.framework */,
+				8436547C2AC494F70089F63F /* Core.framework */,
+				843654782AC494EC0089F63F /* Core.framework */,
 				8436546D2AC48A070089F63F /* Core.framework */,
 				B824B4143239853D76A52272 /* Pods_GameMod.framework */,
 			);
@@ -249,7 +259,7 @@
 				84A99A2E2AC4895E00B0BF56 /* Sources */,
 				84A99A2F2AC4895E00B0BF56 /* Frameworks */,
 				84A99A302AC4895E00B0BF56 /* Resources */,
-				843654702AC48A070089F63F /* Embed Frameworks */,
+				8436547F2AC494F70089F63F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

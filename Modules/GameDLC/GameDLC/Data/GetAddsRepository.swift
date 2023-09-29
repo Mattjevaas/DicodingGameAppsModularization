@@ -8,10 +8,13 @@
 import Core
 import Combine
 
-struct GetAddsRepository<RemoteDataSource: DataSource>: Repository where RemoteDataSource.Response == GameAddsListResponse {
+public struct GetAddsRepository<RemoteDataSource: DataSource>: Repository
+where
+RemoteDataSource.Response == GameAddsListResponse,
+RemoteDataSource.Request == String {
     
     
-    public typealias Request = Any
+    public typealias Request = String
     public typealias Response = [GameDLCModel]
     
     private let _remoteDataSource: RemoteDataSource
@@ -20,14 +23,14 @@ struct GetAddsRepository<RemoteDataSource: DataSource>: Repository where RemoteD
         _remoteDataSource = remoteDataSource
     }
     
-    public func execute(request: Request?) -> AnyPublisher<[GameDLCModel], Error> {
-        return _remoteDataSource.execute(request: nil)
+    public func execute(request: String?) -> AnyPublisher<[GameDLCModel], Error> {
+        return _remoteDataSource.execute(request: request)
             .map { value in
                 value.results.map { result in
                     return GameDLCModel(
                         gameId: result.id,
                         gameTitle: result.name,
-                        gameImage: result.backgroundImage
+                        gameImage: result.backgroundImage ?? ""
                     )
                 }
             }.eraseToAnyPublisher()

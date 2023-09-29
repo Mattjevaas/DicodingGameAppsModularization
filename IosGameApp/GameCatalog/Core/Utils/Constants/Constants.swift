@@ -11,6 +11,7 @@ struct Constants {
     static let cellImageHeight = 120.0
     static let cellImageWidth = 120.0
     static let cellImageCorner = 10.0
+    static let cellDLCImageCorner = 10.0
     static let detailImageHeight = 200.0
     static let detailImageWidth = 200.0
     

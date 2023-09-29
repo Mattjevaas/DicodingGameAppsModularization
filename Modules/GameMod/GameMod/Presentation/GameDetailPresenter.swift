@@ -8,10 +8,12 @@
 import Foundation
 import Combine
 import Core
+import GameDLC
 
 public protocol GameDetailDelegate: AnyObject {
     
     func loadDataFromResult(result: GameModel)
+    func loadDLCDataFromResult(result: [GameDLCModel])
     func changeButton(buttonName: String)
     func showCustomAnimation()
     func hideCustomAnimation()
@@ -21,7 +23,8 @@ public class GameDetailPresenter<
     GameDetailUseCase: UseCase,
     DataExistUseCase: UseCase,
     SaveGameUseCase: UseCase,
-    DeleteGameUseCase: UseCase
+    DeleteGameUseCase: UseCase,
+    GameDLCUseCase: UseCase
 >
 where
 GameDetailUseCase.Request == GetGameDetailRequest,
@@ -31,7 +34,9 @@ DataExistUseCase.Response == Bool,
 SaveGameUseCase.Request == GameRealmEntity,
 SaveGameUseCase.Response == Bool,
 DeleteGameUseCase.Request == String,
-DeleteGameUseCase.Response == Bool {
+DeleteGameUseCase.Response == Bool,
+GameDLCUseCase.Request == String,
+GameDLCUseCase.Response == [GameDLCModel] {
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -40,6 +45,7 @@ DeleteGameUseCase.Response == Bool {
     private let dataExistUseCase: DataExistUseCase
     private let saveGameUseCase: SaveGameUseCase
     private let deleteGameUseCase: DeleteGameUseCase
+    private let gameDLCUseCase: GameDLCUseCase
     
     public weak var delegate: GameDetailDelegate?
     public weak var errordelegate: ErrorDelegate?
@@ -52,12 +58,14 @@ DeleteGameUseCase.Response == Bool {
         gameDetailUseCase: GameDetailUseCase,
         dataExistUseCase: DataExistUseCase,
         saveGameUseCase: SaveGameUseCase,
-        deleteGameUseCase: DeleteGameUseCase
+        deleteGameUseCase: DeleteGameUseCase,
+        gameDLCUseCase: GameDLCUseCase
     ) {
         self.gameDetailUseCase = gameDetailUseCase
         self.dataExistUseCase = dataExistUseCase
         self.saveGameUseCase = saveGameUseCase
         self.deleteGameUseCase = deleteGameUseCase
+        self.gameDLCUseCase = gameDLCUseCase
     }
     
     public func loadData(id: Int) {
@@ -77,6 +85,21 @@ DeleteGameUseCase.Response == Bool {
                 }
             }, receiveValue: { result in
                 self.delegate?.loadDataFromResult(result: result)
+            }).store(in: &cancellables)
+    }
+    
+    public func loadGameDLC(id: String) {
+        gameDLCUseCase.execute(request: id)
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure:
+                    self.errordelegate?.showError(msg: String(describing: completion))
+                case .finished:
+                    break
+                }
+            }, receiveValue: { result in
+                self.delegate?.loadDLCDataFromResult(result: result)
             }).store(in: &cancellables)
     }
     

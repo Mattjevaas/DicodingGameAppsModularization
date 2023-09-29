@@ -5,9 +5,9 @@
 //  Created by admin on 26/09/23.
 //
 
-struct GameDLCModel: Equatable {
+public struct GameDLCModel: Equatable {
     
-    let gameId: Int
-    let gameTitle: String
-    let gameImage: String
+    public let gameId: Int
+    public let gameTitle: String
+    public let gameImage: String
 }

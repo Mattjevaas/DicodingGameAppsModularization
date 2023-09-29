@@ -8,6 +8,7 @@
 import Foundation
 import Core
 import GameMod
+import GameDLC
 
 class HomeRouter {
     
@@ -34,12 +35,19 @@ class HomeRouter {
             Bool,
             DeleteGameDataRepository<GameLocaleDataSource>> = r.provideDeleteGame()
         
+        let gameDLCUseCase: Interactor<
+            String,
+            [GameDLCModel],
+            GetAddsRepository<GetAddsRemoteDataSource>> = r.provideGetGameDLC()
+        
         let gameDetailPresenter = GameDetailPresenter(
             gameDetailUseCase: gameDetailUseCase,
             dataExistUseCase: dataExistUseCase,
             saveGameUseCase: saveGameUseCase,
-            deleteGameUseCase: deleteGameUseCase
+            deleteGameUseCase: deleteGameUseCase,
+            gameDLCUseCase: gameDLCUseCase
         )
+
         
         return GameDetailView(presenter: gameDetailPresenter)
     }

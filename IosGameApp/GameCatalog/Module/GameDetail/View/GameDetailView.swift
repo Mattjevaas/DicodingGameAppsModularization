@@ -10,6 +10,7 @@ import Kingfisher
 import Combine
 import Core
 import GameMod
+import GameDLC
 
 class GameDetailView: UIViewController {
     
@@ -29,7 +30,11 @@ class GameDetailView: UIViewController {
         Interactor<
             String,
             Bool,
-            DeleteGameDataRepository<GameLocaleDataSource>>
+            DeleteGameDataRepository<GameLocaleDataSource>>,
+        Interactor<
+            String,
+            [GameDLCModel],
+            GetAddsRepository<GetAddsRemoteDataSource>>
     >
     
     var spinner = UIActivityIndicatorView(style: .medium)
@@ -41,9 +46,16 @@ class GameDetailView: UIViewController {
     var gameRating = UILabel()
     var gameDesc = UILabel()
     var gameReleased = UILabel()
+    var dlcLabel = UILabel()
     
     var stackView = UIStackView()
     var gameData: GameModel?
+    
+    var collectionView = UICollectionView(
+        frame: CGRect.zero,
+        collectionViewLayout: UICollectionViewFlowLayout.init()
+    )
+    var gameDLC: [GameDLCModel] = []
     
     init(presenter: GameDetailPresenter<
          Interactor<
@@ -61,7 +73,12 @@ class GameDetailView: UIViewController {
          Interactor<
              String,
              Bool,
-             DeleteGameDataRepository<GameLocaleDataSource>>
+             DeleteGameDataRepository<GameLocaleDataSource>>,
+         Interactor<
+             String,
+             [GameDLCModel],
+             GetAddsRepository<GetAddsRemoteDataSource>>
+         
      >) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -86,6 +103,9 @@ extension GameDetailView {
         presenter.errordelegate = self
         presenter.delegate = self
         
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
         view.backgroundColor = .white
         self.navigationItem.largeTitleDisplayMode = .never
         
@@ -97,11 +117,10 @@ extension GameDetailView {
         scrollView.addSubview(contentView)
         contentView.addSubview(gameImage)
         contentView.addSubview(stackView)
+        contentView.addSubview(collectionView)
         
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
+        configureCollectionView()
+        configureSpinner()
         configureGameImage()
         configureLabel()
         
@@ -110,11 +129,30 @@ extension GameDetailView {
         setStack()
         setGameImageConstraints()
         setStackConstraints()
+        setCollectionViewConstraints()
         
         if let id = presenter.gameId {
             presenter.loadData(id: id)
+            presenter.loadGameDLC(id: String(id))
         }
         
+    }
+    
+    func configureCollectionView() {
+        collectionView.register(GameDLCCollectionViewCell.self, forCellWithReuseIdentifier: "GameDLCCellIdentifier")
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+        layout.itemSize = CGSize(width: 200, height: 140)
+        layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
+        layout.sectionInset.top = 0
+        layout.sectionInset.bottom = 0
+        collectionView.setCollectionViewLayout(layout, animated: true)
+        collectionView.isScrollEnabled = true
+    }
+    
+    func configureSpinner() {
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
     func configureGameImage() {
@@ -140,6 +178,9 @@ extension GameDetailView {
         gameReleased.text = "Released date: "
         gameReleased.font = UIFont.systemFont(ofSize: 14)
         gameReleased.textColor = .systemGray
+        
+        dlcLabel.text = "Additional Content"
+        dlcLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
     }
     
     func setStack() {
@@ -147,6 +188,7 @@ extension GameDetailView {
         stackView.addArrangedSubview(gameRating)
         stackView.addArrangedSubview(gameDesc)
         stackView.addArrangedSubview(gameReleased)
+        stackView.addArrangedSubview(dlcLabel)
         
         stackView.spacing = 8
         stackView.axis = .vertical
@@ -183,7 +225,15 @@ extension GameDetailView {
         stackView.topAnchor.constraint(equalTo: gameImage.bottomAnchor, constant: 50).isActive = true
         stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         stackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.9).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    }
+    
+    func setCollectionViewConstraints() {
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 5).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50).isActive = true
+        collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true
+        collectionView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        collectionView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.95).isActive = true
     }
 }
 
@@ -214,7 +264,7 @@ extension GameDetailView {
     func showAnimation() {
         spinner.startAnimating()
         
-        [gameImage, gameTitle, gameRating, gameDesc, gameReleased].forEach {
+        [gameImage, gameTitle, gameRating, gameDesc, gameReleased, collectionView, dlcLabel].forEach {
             $0.isHidden = true
         }
     }
@@ -222,7 +272,7 @@ extension GameDetailView {
     func hideAnimation() {
         spinner.stopAnimating()
         
-        [gameImage, gameTitle, gameRating, gameDesc, gameReleased].forEach {
+        [gameImage, gameTitle, gameRating, gameDesc, gameReleased, collectionView, dlcLabel].forEach {
             $0.isHidden = false
         }
     }
@@ -282,5 +332,49 @@ extension GameDetailView: GameDetailDelegate {
         self.gameRating.text = "Rating: \(result.gameRating)"
         self.gameDesc.text = "Description: \n\n\(result.gameDesc)"
         self.gameReleased.text = "Released date: \(result.gameReleasedDate)"
+    }
+    
+    func loadDLCDataFromResult(result: [GameDLCModel]) {
+        gameDLC = result
+        collectionView.reloadData()
+    }
+}
+
+// MARK: - Collection Delegate
+extension GameDetailView: UICollectionViewDelegate {
+    
+}
+
+// MARK: - Collection Datasource
+extension GameDetailView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return gameDLC.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GameDLCCellIdentifier", for: indexPath) as? GameDLCCollectionViewCell else {
+            fatalError("Unable to dequeue CustomCollectionViewCell")
+        }
+        
+        let data = gameDLC[indexPath.row]
+        
+        let processor = ResizingImageProcessor(referenceSize: CGSize(width: 200, height: 100), mode: .aspectFill) |> RoundCornerImageProcessor(cornerRadius: Constants.cellDLCImageCorner)
+
+        if !data.gameImage.isEmpty {
+            cell.gameDLCImage.kf.indicatorType = .activity
+            cell.gameDLCImage.kf.setImage(
+                with: URL(string: data.gameImage),
+                options: [
+                    .processor(processor),
+                    .transition(.fade(1)),
+                    .cacheOriginalImage
+                ]
+            )
+        }
+        
+        cell.gameTitle.text = data.gameTitle
+        
+        return cell
     }
 }

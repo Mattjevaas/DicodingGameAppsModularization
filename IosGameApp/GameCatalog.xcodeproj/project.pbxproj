@@ -10,6 +10,9 @@
 		383B90CC61E9752C5396BCB7 /* Pods_GameCatalogTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820FBFF776DB6C08545DD95D /* Pods_GameCatalogTests.framework */; };
 		842B6F022AC486FA00C82088 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842B6EFF2AC486FA00C82088 /* Core.framework */; };
 		842B6F032AC486FA00C82088 /* Core.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 842B6EFF2AC486FA00C82088 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8436548B2AC5A94B0089F63F /* GameDLCCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436548A2AC5A94B0089F63F /* GameDLCCollectionViewCell.swift */; };
+		8436549D2AC5B38B0089F63F /* GameDLC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8436549C2AC5B38B0089F63F /* GameDLC.framework */; };
+		8436549E2AC5B38B0089F63F /* GameDLC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8436549C2AC5B38B0089F63F /* GameDLC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		84728E7C28D30E9A00127063 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84728E7B28D30E9A00127063 /* AppDelegate.swift */; };
 		84728E7E28D30E9A00127063 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84728E7D28D30E9A00127063 /* SceneDelegate.swift */; };
 		84728E8528D30E9F00127063 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84728E8428D30E9F00127063 /* Assets.xcassets */; };
@@ -50,6 +53,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8436549E2AC5B38B0089F63F /* GameDLC.framework in CopyFiles */,
 				842B6F032AC486FA00C82088 /* Core.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +75,12 @@
 		842B6F012AC486FA00C82088 /* GameDLC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GameDLC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		843654752AC48EF20089F63F /* GameMod.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GameMod.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		843654842AC4953A0089F63F /* GameMod.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GameMod.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		843654872AC5A7E60089F63F /* GameDLC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GameDLC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8436548A2AC5A94B0089F63F /* GameDLCCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDLCCollectionViewCell.swift; sourceTree = "<group>"; };
+		8436548C2AC5AF740089F63F /* GameMod.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GameMod.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		843654932AC5B1560089F63F /* GameDLC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GameDLC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		843654962AC5B15B0089F63F /* GameMod.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GameMod.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8436549C2AC5B38B0089F63F /* GameDLC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GameDLC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84728E7828D30E9A00127063 /* GameCatalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameCatalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84728E7B28D30E9A00127063 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84728E7D28D30E9A00127063 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8436549D2AC5B38B0089F63F /* GameDLC.framework in Frameworks */,
 				98F2048330133EFB0114E9A0 /* Pods_GameCatalog.framework in Frameworks */,
 				842B6F022AC486FA00C82088 /* Core.framework in Frameworks */,
 			);
@@ -376,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				84D927842918ED1400C882F1 /* GameTableViewCell.swift */,
+				8436548A2AC5A94B0089F63F /* GameDLCCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -391,6 +403,11 @@
 		FB6C2C82CC409DAA07ABDFBE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8436549C2AC5B38B0089F63F /* GameDLC.framework */,
+				843654962AC5B15B0089F63F /* GameMod.framework */,
+				843654932AC5B1560089F63F /* GameDLC.framework */,
+				8436548C2AC5AF740089F63F /* GameMod.framework */,
+				843654872AC5A7E60089F63F /* GameDLC.framework */,
 				843654842AC4953A0089F63F /* GameMod.framework */,
 				843654752AC48EF20089F63F /* GameMod.framework */,
 				842B6EFF2AC486FA00C82088 /* Core.framework */,
@@ -624,6 +641,7 @@
 				84D927A52918ED1400C882F1 /* DevProfileView.swift in Sources */,
 				84D927A12918ED1400C882F1 /* FavoriteRouter.swift in Sources */,
 				84D927A22918ED1400C882F1 /* EditProfilePresenter.swift in Sources */,
+				8436548B2AC5A94B0089F63F /* GameDLCCollectionViewCell.swift in Sources */,
 				84D927A42918ED1400C882F1 /* DevProfilePresenter.swift in Sources */,
 				84728E7E28D30E9A00127063 /* SceneDelegate.swift in Sources */,
 				84D927AE2918ED1400C882F1 /* GameTableViewCell.swift in Sources */,

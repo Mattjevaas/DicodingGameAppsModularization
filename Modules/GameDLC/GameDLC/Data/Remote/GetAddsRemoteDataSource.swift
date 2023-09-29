@@ -9,7 +9,8 @@ import Core
 import Combine
 import Alamofire
 
-struct GetCategoriesRemoteDataSource : DataSource {
+public struct GetAddsRemoteDataSource : DataSource {
+    
     public typealias Request = String
     public typealias Response = GameAddsListResponse
     
@@ -29,7 +30,9 @@ struct GetCategoriesRemoteDataSource : DataSource {
             var component = URLComponents(string: "https://api.rawg.io/api/games/\(request)/additions")!
 
             component.queryItems = [
-              URLQueryItem(name: "key", value: _apiKey)
+              URLQueryItem(name: "key", value: _apiKey),
+              URLQueryItem(name: "page", value: "1"),
+              URLQueryItem(name: "page_size", value: "10")
             ]
               
             let req = URLRequest(url: (component.url)!)

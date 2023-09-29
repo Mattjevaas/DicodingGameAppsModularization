@@ -9,6 +9,7 @@ import RealmSwift
 import Swinject
 import Core
 import GameMod
+import GameDLC
 
 final class Injection: NSObject {
     private let container = Container()
@@ -164,5 +165,21 @@ final class Injection: NSObject {
         }.inObjectScope(.container)
         
         return Interactor(repository: container.resolve(GetGameDataFromLocalRepository<GameLocaleDataSource>.self)!) as! U
+    }
+    
+    func provideGetGameDLC<U: UseCase>() -> U
+    where U.Request == String, U.Response == [GameDLCModel] {
+        
+        container.register(GetAddsRemoteDataSource.self) { _ in
+        
+            return GetAddsRemoteDataSource(apiKey: self.apiKey)
+            
+        }.inObjectScope(.container)
+        
+        container.register(GetAddsRepository<GetAddsRemoteDataSource>.self) { r in
+            GetAddsRepository(remoteDataSource: r.resolve(GetAddsRemoteDataSource.self)!)
+        }.inObjectScope(.container)
+        
+        return Interactor(repository: container.resolve(GetAddsRepository<GetAddsRemoteDataSource>.self)!) as! U
     }
 }
