@@ -51,6 +51,8 @@ class GameDetailView: UIViewController {
     var stackView = UIStackView()
     var gameData: GameModel?
     
+    var additionalNotFound = UILabel()
+    
     var collectionView = UICollectionView(
         frame: CGRect.zero,
         collectionViewLayout: UICollectionViewFlowLayout.init()
@@ -118,6 +120,7 @@ extension GameDetailView {
         contentView.addSubview(gameImage)
         contentView.addSubview(stackView)
         contentView.addSubview(collectionView)
+        contentView.addSubview(additionalNotFound)
         
         configureCollectionView()
         configureSpinner()
@@ -130,6 +133,7 @@ extension GameDetailView {
         setGameImageConstraints()
         setStackConstraints()
         setCollectionViewConstraints()
+        setAdditionalNotFound()
         
         if let id = presenter.gameId {
             presenter.loadData(id: id)
@@ -179,6 +183,11 @@ extension GameDetailView {
         gameReleased.font = UIFont.systemFont(ofSize: 14)
         gameReleased.textColor = .systemGray
         
+        additionalNotFound.text = "No Additional Content"
+        additionalNotFound.font = UIFont.systemFont(ofSize: 14)
+        additionalNotFound.textColor = .systemGray
+        additionalNotFound.isHidden = true
+        
         dlcLabel.text = "Additional Content"
         dlcLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
     }
@@ -225,6 +234,13 @@ extension GameDetailView {
         stackView.topAnchor.constraint(equalTo: gameImage.bottomAnchor, constant: 50).isActive = true
         stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         stackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.9).isActive = true
+    }
+    
+    func setAdditionalNotFound() {
+        additionalNotFound.translatesAutoresizingMaskIntoConstraints = false
+        additionalNotFound.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 5).isActive = true
+        additionalNotFound.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        additionalNotFound.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
     func setCollectionViewConstraints() {
@@ -318,15 +334,17 @@ extension GameDetailView: GameDetailDelegate {
         
         let processor = ResizingImageProcessor(referenceSize: CGSize(width: Constants.cellImageWidth, height: Constants.cellImageHeight), mode: .aspectFill) |> RoundCornerImageProcessor(cornerRadius: Constants.cellImageCorner)
         
-        self.gameImage.kf.indicatorType = .activity
-        self.gameImage.kf.setImage(
-            with: URL(string: result.gameImage),
-            options: [
-                .processor(processor),
-                .transition(.fade(1)),
-                .cacheOriginalImage
-            ]
-        )
+        if !result.gameImage.isEmpty {
+            self.gameImage.kf.indicatorType = .activity
+            self.gameImage.kf.setImage(
+                with: URL(string: result.gameImage),
+                options: [
+                    .processor(processor),
+                    .transition(.fade(1)),
+                    .cacheOriginalImage
+                ]
+            )
+        }
         
         self.gameTitle.text = "Title: \(result.gameTitle)"
         self.gameRating.text = "Rating: \(result.gameRating)"
@@ -336,6 +354,13 @@ extension GameDetailView: GameDetailDelegate {
     
     func loadDLCDataFromResult(result: [GameDLCModel]) {
         gameDLC = result
+        
+        if gameDLC.isEmpty {
+            additionalNotFound.isHidden = false
+        } else {
+            additionalNotFound.isHidden = true
+        }
+        
         collectionView.reloadData()
     }
 }
@@ -343,6 +368,16 @@ extension GameDetailView: GameDetailDelegate {
 // MARK: - Collection Delegate
 extension GameDetailView: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let data = gameDLC[indexPath.row]
+        
+        let gameDetailView = GameDetailRouter().makeGameDetailView()
+        gameDetailView.presenter.gameId = data.gameId
+        gameDetailView.presenter.navTitle = data.gameTitle
+        
+        self.navigationController?.pushViewController(gameDetailView, animated: true)
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
 }
 
 // MARK: - Collection Datasource
